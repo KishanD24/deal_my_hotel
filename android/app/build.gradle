@@ -1,0 +1,117 @@
+plugins {
+    id "com.android.application"
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '2'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    compileSdkVersion 36
+    namespace = "com.dealmyhotel.app"
+    ndkVersion "29.0.13113456"
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.dealmyhotel.app"
+        minSdkVersion 24
+        targetSdkVersion 36
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // Add signing configs
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Use release signing config
+            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildToolsVersion "36.0.0"
+    lint {
+        checkReleaseBuilds true
+        abortOnError false
+    }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'androidx.window:window:1.0.0'
+    implementation 'androidx.window:window-java:1.0.0'
+    implementation 'com.google.android.gms:play-services-wallet:19.3.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-analytics:21.2.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    implementation 'com.google.android.gms:play-services-basement:18.2.0'
+    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
+    implementation platform('com.google.firebase:firebase-bom:32.8.1')
+}

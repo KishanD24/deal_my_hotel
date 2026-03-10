@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471499453094",
+    "project_id": "dealmyhotel-47e69",
+    "storage_bucket": "dealmyhotel-47e69.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471499453094:android:63f57d5d396aabfc627a67",
+        "android_client_info": {
+          "package_name": "com.dealmyhotel.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZjSUjIIepPzT5cJBi_JMIFhD4mPmqLe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
