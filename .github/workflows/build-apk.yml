@@ -25,6 +25,19 @@ jobs:
         with:
           flutter-version: '3.35.0'
 
+        # ✅ Accept Android licenses
+      - name: Accept Android licenses
+        run: yes | flutter doctor --android-licenses
+
+      # ✅ Install required SDK + NDK
+      - name: Install Android SDK components
+        run: |
+          sdkmanager "platform-tools"
+          sdkmanager "platforms;android-34"
+          sdkmanager "build-tools;34.0.0"
+          sdkmanager "ndk;29.0.13113456"
+          
+
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/nitzdzinr.jks
