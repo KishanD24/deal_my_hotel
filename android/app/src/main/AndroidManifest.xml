@@ -18,7 +18,7 @@
         android:name="${applicationName}"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="Dealmyhotel : Hotels on lease & Sale"
+        android:label="Dealmyhotel : Hotels on lease &amp; Sale"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         tools:replace="android:label">
