@@ -59,7 +59,7 @@ void main() async {
   sharedPreferences = await SharedPreferences.getInstance();
   appStore.setLogin(getBoolAsync(IS_LOGGED_IN), isInitializing: true);
   int themeModeIndex = getIntAsync(THEME_MODE_INDEX,
-      defaultValue: AppThemeMode().themeModeLight);
+      defaultValue: AppThemeMode().themeModeDark);
   if (themeModeIndex == AppThemeMode().themeModeLight) {
     appStore.setDarkMode(false);
   } else if (themeModeIndex == AppThemeMode().themeModeDark) {
@@ -187,3 +187,4 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
+
